@@ -1,53 +1,50 @@
-# EcoSort — AI-Powered Waste Classification and Recycling Assistant
+# UniGuide AI — AI-Powered University FAQ Assistant
 
-> Helps users identify common waste materials from images and obtain recycling and disposal guidance grounded in public waste-management documents.
+> Answers UTM students' questions about academic calendars, course registration, academic regulations, and student services using official university documents.
 
 ## Problem Statement
 
-People may find it difficult to identify waste materials and determine how to dispose of them correctly. Waste-management information is distributed across different public documents, making it time-consuming to find relevant guidance. EcoSort AI combines image classification and Retrieval-Augmented Generation (RAG) to classify common waste materials and provide document-grounded disposal guidance with source citations.
+UTM students may need to consult multiple university webpages and documents to find information about academic calendars, course registration, academic regulations, and student services. Although official information is available, it is distributed across different sources, making it less convenient to locate relevant answers. UniGuide AI uses retrieval-augmented generation (RAG) to provide answers grounded in official UTM documents, with source citations and a fallback when sufficient evidence is unavailable.
 
 ## Evidence of the Problem
 
-- Malaysia's national recycling rate was **37.9% in 2024**, according to official data compiled from KPKT administrative records. Source: [Malaysia SDG Indicator 12.5.1 — Recycling Rate](https://data.gov.my/data-catalogue/sdg_12-5-1)
-- Global municipal solid waste is projected to increase from **2.1 billion tonnes in 2023 to 3.8 billion tonnes by 2050**. Source: [UNEP — Global Waste Management Outlook 2024](https://www.unep.org/en/publications/report/global-waste-management-outlook-2024)
+- UTM's Academic Management Division publishes course registration guidelines and procedures on its official website.  
+  Source: https://amd.utm.my/course-registration/
+- UTM's Faculty of Computing Student Development Hub provides links to student resources, including academic calendars, academic regulations, and course registration information.  
+  Source: https://comp.utm.my/student/home/
 
 ## Initial Related Work / Existing Approaches
 
-- **TrashNet — Classification of Trash for Recyclability Status:** Provides an image dataset for six waste categories: glass, paper, cardboard, plastic, metal, and trash. Limitation: images were captured in relatively controlled settings and do not cover all real-world waste conditions. Source: [TrashNet GitHub Repository](https://github.com/garythung/trashnet)
-- **Deep Convolutional Neural Networks Object Detector for Real-Time Waste Identification:** Explores deep learning for waste identification. Limitation: identifying waste does not automatically provide location-specific disposal instructions. Source: [Applied Sciences, 2020](https://www.mdpi.com/2076-3417/10/20/7301)
-- **MobileNetV2 — Inverted Residuals and Linear Bottlenecks:** Presents an efficient deep-learning architecture suitable for image classification. Limitation: MobileNetV2 is a general-purpose architecture and does not independently provide waste-management guidance. Source: [Sandler et al., CVPR 2018](https://openaccess.thecvf.com/content_cvpr_2018/html/Sandler_MobileNetV2_Inverted_Residuals_CVPR_2018_paper.html)
+- **Academic FAQ Chatbot Using Retrieval Augmented Generation (2026)** — Uses retrieval-augmented generation for academic question answering. A similar approach would need to be adapted to official UTM documents and evaluated for answer accuracy.  
+  Source: https://ejournal1.unud.ac.id/index.php/jitter/article/view/4289
+- **Retrieval-Augmented Generation for Educational Application: A Systematic Survey (2025)** — Reviews RAG applications in education and discusses limitations such as hallucinations and outdated information. UniGuide AI will address these concerns through source-grounded answers and an insufficient-evidence fallback.  
+  Source: https://www.sciencedirect.com/science/article/pii/S2666920X25000578
+- **Label-Free Evaluation of Retrieval-Augmented Generation in a University Policy Chatbot (2026)** — Examines the evaluation of a university policy chatbot, including relevance, groundedness, and retrieval effectiveness. UniGuide AI will evaluate these aspects using UTM-related questions and official documents.  
+  Source: https://doi.org/10.1145/3770761.3777161
 
 ## Engineering Gap / Limitation
 
-Existing image-classification approaches can identify waste categories but may not explain how to dispose of the identified material. Public waste-management information can also be difficult to search across multiple documents. EcoSort AI addresses this gap by integrating image classification with a RAG assistant that retrieves relevant information and provides answers with source citations. The system will distinguish material identification from actual recycling-facility acceptance, which may depend on local rules.
+Existing approaches demonstrate the potential of document-grounded chatbots, but UniGuide AI focuses on integrating official UTM information into one web-based assistant. The system will combine semantic retrieval, language-model-generated answers, source citations, and an insufficient-evidence fallback. Its performance will be evaluated to determine whether answers are relevant, accurate, and supported by the retrieved documents.
 
 ## Project Objectives
 
-- **O1:** To develop a waste image-classification model using MobileNetV2 and the TrashNet dataset.
-- **O2:** To develop a RAG-based assistant that retrieves information from public waste-management documents and provides disposal guidance with source citations.
-- **O3:** To integrate the image classifier and RAG assistant into a web application and evaluate classification performance, retrieval relevance, answer groundedness, citation correctness, and response latency.
+- **O1:** To collect and prepare official UTM documents related to academic calendars, course registration, academic regulations, and student services for the knowledge base.
+- **O2:** To develop a web-based AI FAQ assistant using retrieval-augmented generation that provides source-grounded answers with citations and an insufficient-evidence fallback.
+- **O3:** To evaluate the system based on answer correctness, retrieval relevance, citation accuracy, unsupported-answer handling, and response latency.
 
 ## Target Users
 
-- Households and members of the public.
-- Students and educators learning about waste separation.
-- Environmentally conscious users seeking waste-disposal guidance.
-
-The initial scope focuses on common household waste and publicly available Malaysian waste-management guidance.
+UTM undergraduate students, especially new students who need to find information about academic calendars, course registration, academic regulations, and student services.
 
 ## Data Sources
 
-- **TrashNet image dataset** — waste images for training and evaluating the image-classification model.  
-  URL: https://github.com/garythung/trashnet
-- **Guidelines for Source Separation of Municipal Solid Wastes** — public guidance on waste separation.  
-  URL: https://jpspn.kpkt.gov.my/jpspn/resources/Images%20JPSPN/Sumber%20Rujukan/Garis%20Panduan%20Teknikal/Guidelines_for_Source_Separation_of_Municipal_Solid_Wastes.pdf
-- **SWCorp Household Solid Waste Regulations** — information about household solid-waste regulations.  
-  URL: https://www.swcorp.gov.my/en/household-solid-waste-regulations/
-- **UNEP Global Waste Management Outlook 2024** — global waste-management information and statistics.  
-  URL: https://www.unep.org/en/publications/report/global-waste-management-outlook-2024
+- **UTM Academic Management Division — Course Registration Guidelines:** https://amd.utm.my/course-registration/
+- **UTM Faculty of Computing — Student Development Hub:** https://comp.utm.my/student/home/
+- **UTM Faculty of Computing — Undergraduate Resources:** https://comp.utm.my/undergraduate/
+- **UTM Faculty of Computing — Programmes and Student Hub:** https://comp.utm.my/programmes-and-student-hub/
 
 ## Weekly Progress
 
 | Week | Focus | Deliverable | Status |
 |---|---|---|---|
-| W1 | System map and project scope | README.md and initial documentation | ✅ Completed |
+| W1 | System map + project scope | README.md + docs | ✅ |
