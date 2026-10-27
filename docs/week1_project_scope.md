@@ -1,103 +1,119 @@
 ## Project Name
 
-AI-Powered Waste Management and Recycling Assistant
+**UniGuide AI — AI-Powered University FAQ Assistant**
 
 ## Domain
 
-Artificial Intelligence / Computer Vision / Sustainable Waste Management / Natural Language Processing
+Higher Education / Student Services / Natural Language Processing / Retrieval-Augmented Generation (RAG)
 
 ## Problem Statement
 
-People may find it difficult to identify the correct waste category and determine how to dispose of household waste responsibly. Waste-management information is available through government guidelines and other public resources, but users may need to consult different sources to find relevant instructions.
+University students often need to find information about academic calendars, course registration, academic regulations, and student services. This information is published across different university webpages and documents, which can make it time-consuming to locate the correct information.
 
-This project proposes a web-based AI assistant that classifies waste from uploaded images using a trained MobileNetV2 image-classification model. It also uses Retrieval-Augmented Generation (RAG) to retrieve relevant information from public waste-management documents and generate answers with source citations. The system aims to help users identify common waste categories and access relevant disposal guidance.
+UniGuide AI will use semantic retrieval and a large language model to answer students' questions using official UTM documents. It will provide source citations so students can verify the information and will indicate when the available documents do not contain a sufficient answer.
 
 ## Evidence of the Problem
 
-**Evidence 1:** Malaysia's national recycling rate reached 37.9% in 2024, according to data compiled from government administrative records. The Malaysian government has also promoted waste separation at source and recycling initiatives. This supports the relevance of developing tools that help people access waste-management information and identify recyclable materials.
+**Evidence 1:** UTM publishes course registration requirements and procedures through its Academic Management Division website. Students must understand the applicable registration rules and deadlines, making accurate access to this information important.
 
-**Source / citation:** Department of Statistics Malaysia and Ministry of Housing and Local Government, National Recycling Rate dataset.  
-https://data.gov.my/data-catalogue/sdg_12-5-1
+**Source / citation:** [UTM Academic Management Division — Course Registration Guidelines](https://amd.utm.my/course-registration/)
 
-**Evidence 2:** The United Nations Environment Programme's *Global Waste Management Outlook 2024* estimates that global municipal solid waste generation could increase from 2.1 billion tonnes in 2023 to 3.8 billion tonnes by 2050. The report highlights the importance of improving waste prevention and management.
+**Evidence 2:** UTM's Faculty of Computing Student Development Hub provides separate resources for academic calendars, academic regulations, course registration timetables, and undergraduate handbooks. This demonstrates that relevant student information is available through multiple resources rather than one single FAQ page.
 
-**Source / citation:** United Nations Environment Programme (UNEP), *Global Waste Management Outlook 2024*.  
-https://www.unep.org/en/publications/report/global-waste-management-outlook-2024
+**Source / citation:** [UTM Faculty of Computing — Student Development Hub](https://comp.utm.my/student/home/)
 
 ## Initial Related Work (at least 3)
 
-### Study / solution 1: Classification of Trash for Recyclability Status — TrashNet
+### Study / Solution 1: Academic FAQ Chatbot Using Retrieval-Augmented Generation
 
-**Source / citation:** Thung, G. and Yang, M. (2016). *Classification of Trash for Recyclability Status*. Stanford CS229 project report.  
-Dataset and project repository: https://github.com/garythung/trashnet  
-Project report: https://cs229.stanford.edu/proj2016/report/ThungYang-ClassificationOfTrashForRecyclabilityStatus-report.pdf
+**Description:** This study develops an academic FAQ chatbot using document preprocessing, embedding-based retrieval, a vector database, and a large language model to answer questions about academic information.
 
-**Key limitation:** The dataset contains 2,527 images across six classes: glass, paper, cardboard, plastic, metal and trash. Images were captured under relatively controlled backgrounds and lighting conditions. Therefore, a model trained on this dataset may not perform equally well on real-world images with cluttered backgrounds, different lighting or unfamiliar objects. The dataset also does not provide Malaysian disposal rules.
+**Source / citation:** [Academic FAQ Chatbot Using Retrieval Augmented Generation (2026)](https://ejournal1.unud.ac.id/index.php/jitter/article/view/4289)
 
-### Study / solution 2: Deep Convolutional Neural Networks Object Detector for Real-Time Waste Identification
+**Key limitation:** A chatbot developed for a particular academic information collection may not directly support UTM's own documents, policies, and student information requirements. Its answers must also be evaluated against the relevant official sources.
 
-**Source / citation:** *Applied Sciences*, 2020.  
-https://www.mdpi.com/2076-3417/10/20/7301
+### Study / Solution 2: Retrieval-Augmented Generation for Educational Applications — A Systematic Survey
 
-**Key limitation:** The study investigates deep-learning-based waste identification using image data. However, waste identification alone does not provide users with source-supported, location-relevant disposal instructions. My project will combine image classification with a document-grounded RAG assistant.
+**Description:** This survey reviews RAG applications in education and discusses technical components such as indexing, retrieval, and answer generation.
 
-### Study / solution 3: MobileNetV2 — Inverted Residuals and Linear Bottlenecks
+**Source / citation:** [Computers and Education: Artificial Intelligence (2025)](https://www.sciencedirect.com/science/article/pii/S2666920X25000578)
 
-**Source / citation:** Sandler, M., Howard, A., Zhu, M., Zhmoginov, A. and Chen, L.-C. (2018). *MobileNetV2: Inverted Residuals and Linear Bottlenecks*. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp. 4510–4520.  
-https://openaccess.thecvf.com/content_cvpr_2018/html/Sandler_MobileNetV2_Inverted_Residuals_CVPR_2018_paper.html
+**Key limitation:** The survey identifies challenges such as hallucinations, outdated knowledge, and limited multimodal capabilities. A general RAG framework does not automatically guarantee correct answers or reliable citations for university information.
 
-**Key limitation:** MobileNetV2 is a general-purpose vision architecture rather than a complete waste-management solution. It does not independently provide recycling instructions or verify whether a particular recycling facility accepts an item. Its performance for this project must be evaluated on the selected waste-classification dataset.
+### Study / Solution 3: Label-Free Evaluation of Retrieval-Augmented Generation in a University Policy Chatbot
+
+**Description:** This study evaluates a RAG chatbot for university policy documents, examining answer relevance, groundedness, and retrieval effectiveness.
+
+**Source / citation:** [ACM Technical Symposium on Computer Science Education (2026)](https://doi.org/10.1145/3770761.3777161)
+
+**Key limitation:** The study reports that answer relevance and groundedness remain imperfect, demonstrating that a university chatbot needs systematic evaluation rather than assuming that retrieved documents always produce correct answers.
 
 ## Engineering Gap / Limitation
 
-Existing waste-classification models can identify common waste categories from images, while public documents provide waste-management and recycling guidance. However, these functions are often separate. The proposed system integrates image classification with RAG so that users can upload a waste image, obtain a predicted category, and retrieve relevant disposal guidance with supporting source citations in one web application.
+Existing university information sources provide authoritative content, while RAG-based chatbots offer a more conversational way to access it. However, students may still receive incomplete, outdated, or unsupported answers if retrieval and answer generation are unreliable.
 
-The system will also communicate uncertainty when an image cannot be classified confidently or when the available documents do not provide enough information. A predicted material category will not automatically be treated as proof that the item is accepted by every recycling centre.
+UniGuide AI addresses this practical gap by integrating semantic document retrieval, source-grounded answer generation, citations, and an insufficient-evidence fallback into one web application using official UTM information. Its performance will be measured using a prepared set of questions with expected answers and supporting document passages.
 
 ## Initial Project Objectives (2–3)
 
-**O1:** To design and develop a waste-image classification model using transfer learning with MobileNetV2 to classify common waste categories based on the TrashNet dataset.
+**O1:** To collect and prepare official UTM documents and webpages covering academic calendars, course registration, academic regulations, and student services for the knowledge base.
 
-**O2:** To develop a web-based RAG assistant that retrieves relevant information from public waste-management documents and generates disposal guidance with source citations.
+**O2:** To develop a web-based university FAQ assistant using semantic retrieval and a large language model to generate document-grounded answers with source citations and appropriate fallback behaviour.
 
-**O3:** To integrate the image-classification model and RAG assistant into a single web application and evaluate the system using classification performance, retrieval relevance, answer groundedness, citation correctness and response time.
+**O3:** To evaluate the system using answer correctness, retrieval relevance, citation accuracy, unsupported-answer handling, and response latency.
 
 ## Target Users
 
-- Members of the public who want to identify common household waste items.
-- Students and households seeking accessible recycling and waste-disposal information.
-- Environmentally conscious users who want to understand waste categories and find relevant disposal guidance.
+UTM undergraduate students, particularly new students and students who need information about academic calendars, course registration, academic regulations, and university student services.
 
-The initial prototype will focus on common household waste categories represented in TrashNet and publicly documented guidance relevant to Malaysia.
+The initial version will focus on publicly accessible information and will not provide personalised academic decisions or access to private student records.
 
 ## Data Sources (at least 2)
 
-**Source 1:** TrashNet image-classification dataset — 2,527 images in six categories: glass, paper, cardboard, plastic, metal and trash. Used to train and evaluate the image-classification model.  
-URL: https://github.com/garythung/trashnet
+**Source 1: UTM Academic Management Division — Course Registration Guidelines**
 
-**Source 2:** Guidelines for Source Separation of Municipal Solid Wastes — published by Malaysia's National Solid Waste Management Department (JPSPN). Used as a source of waste-separation guidance. Check the document's publication date and validate guidance against current information.  
-URL: https://jpspn.kpkt.gov.my/jpspn/resources/Images%20JPSPN/Sumber%20Rujukan/Garis%20Panduan%20Teknikal/Guidelines_for_Source_Separation_of_Municipal_Solid_Wastes.pdf
+URL: https://amd.utm.my/course-registration/
 
-**Source 3:** Household Solid Waste Regulations — SWCorp Malaysia. Used for relevant Malaysian regulatory information.  
-URL: https://www.swcorp.gov.my/en/household-solid-waste-regulations/
+**Purpose:** To provide information about course registration procedures, registration requirements, and relevant student guidance.
 
-**Source 4:** Global Waste Management Outlook 2024 — United Nations Environment Programme (UNEP). Used for background information on global waste-management challenges and principles.  
-URL: https://www.unep.org/en/publications/report/global-waste-management-outlook-2024
+**Source 2: UTM Faculty of Computing — Student Development Hub**
+
+URL: https://comp.utm.my/student/home/
+
+**Purpose:** To identify official student resources, including academic calendars, academic regulations, course registration information, and undergraduate handbooks.
+
+**Source 3: UTM Faculty of Computing — Undergraduate Resources**
+
+URL: https://comp.utm.my/undergraduate/
+
+**Purpose:** To obtain relevant undergraduate programme handbooks, academic regulations, registration information, and academic calendars where publicly available.
+
+**Source 4: UTM Faculty of Computing — Programmes and Student Hub**
+
+URL: https://comp.utm.my/programmes-and-student-hub/
+
+**Purpose:** To identify additional programme and student information that may be useful for expanding the knowledge base.
 
 ## Similar to EduAdvisor
 
-Both projects use AI to help users access useful information through a web application. They retrieve information from existing documents and generate responses based on relevant sources. Both require appropriate evaluation and safeguards to reduce unsupported AI-generated answers.
+Both UniGuide AI and EduAdvisor are document-grounded question-answering systems designed to help students access university information more efficiently. Both can use official documents, semantic retrieval, a large language model, and source citations to produce answers that users can verify.
 
 ## Different from EduAdvisor
 
-EduAdvisor focuses on academic advising and answering questions about university information. My project focuses on waste management and recycling. It combines computer vision to classify uploaded waste images with RAG to retrieve and explain relevant waste-disposal guidance. It also evaluates image-classification performance in addition to retrieval and answer quality.
+UniGuide AI focuses on general university FAQs and student services, such as academic calendar dates, course registration procedures, academic regulations, and student resources. EduAdvisor focuses more specifically on academic advising, including course prerequisites, course planning, and graduation requirements.
+
+UniGuide AI will initially prioritise finding and explaining information in official UTM resources rather than making personalised academic recommendations.
 
 ## Responsible AI Risks (at least 2)
 
-**Risk 1 — Incorrect image classification:** The model may misclassify an item, particularly when images have poor lighting, cluttered backgrounds or objects that are not represented in TrashNet. The application should display the predicted category and confidence where appropriate, and ask users to upload a clearer image when confidence is low.
+**Risk 1 — Hallucination and incorrect information:** The assistant may generate incorrect registration requirements, dates, or policies. This could mislead students.
 
-**Risk 2 — Hallucination or unsupported disposal advice:** The RAG assistant may generate incorrect recycling instructions or provide a citation that does not support its answer. The system should retrieve relevant passages, provide source citations, evaluate citation correctness and state when the available documents cannot answer a question.
+**Mitigation:** Retrieve relevant official passages, provide source citations, evaluate answers against verified reference answers, and decline to answer when the documents do not provide sufficient evidence.
 
-**Risk 3 — Misleading local recycling guidance:** A material may be recyclable in principle but not accepted by a particular collection centre. The system must distinguish material classification from local acceptance rules and avoid claiming that a facility accepts an item unless a reliable source confirms it.
+**Risk 2 — Outdated information:** Academic calendars, registration dates, and university policies may change. Answers based on old documents could mislead students.
 
+**Mitigation:** Record document versions and update dates, prioritise current official sources, and display the source date when available. Flag information that has not been verified as current.
 
+**Risk 3 — Unequal answer quality:** Some student questions may be answered less accurately because of ambiguous wording, unfamiliar terminology, or insufficient coverage in the knowledge base.
+
+**Mitigation:** Test the assistant with differently phrased questions, identify gaps in retrieval, use clear fallback messages, and direct students to the relevant official university source when necessary.
